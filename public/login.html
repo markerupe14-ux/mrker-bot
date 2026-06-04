@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Admin Login</title>
+
+<link rel="stylesheet"
+href="css/style.css">
+
+</head>
+
+<body>
+
+<div class="pair-box">
+
+<h1>Admin Login</h1>
+
+<input
+type="password"
+id="adminKey"
+placeholder="Admin Key"
+/>
+
+<button onclick="login()">
+
+LOGIN
+
+</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+async function login(){
+
+const key =
+document.getElementById("adminKey").value;
+
+const response =
+await fetch(
+"/api/admin/dashboard",
+{
+headers:{
+"x-admin-key":key
+}
+}
+);
+
+const data =
+await response.json();
+
+if(data.success){
+
+localStorage.setItem(
+"admin_key",
+key
+);
+
+window.location =
+"dashboard.html";
+
+}else{
+
+document.getElementById(
+"result"
+).innerHTML =
+data.message;
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>
